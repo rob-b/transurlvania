@@ -233,6 +233,9 @@ class LangSelectionRegexURLResolver(MultilangRegexURLResolver):
 
     def get_regex(self, lang=None):
         lang = lang or get_language()
+        default_lang = getattr(settings, 'TRANSURLVANIA_DEFAULT_LANG', None)
+        if lang == default_lang:
+            return re.compile('^')
         return re.compile('^%s/' % lang)
     regex = property(get_regex)
 
